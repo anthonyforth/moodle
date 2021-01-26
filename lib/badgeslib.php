@@ -1018,12 +1018,12 @@ function badges_get_default_issuer() {
 
     $sitebackpack = badges_get_site_primary_backpack();
     $issuer = array();
-    $issuerurl = new moodle_url('/');
+    $url = parse_url($CFG->wwwroot);
     $issuer['name'] = $CFG->badges_defaultissuername;
     if (empty($issuer['name'])) {
         $issuer['name'] = $SITE->fullname ? $SITE->fullname : $SITE->shortname;
     }
-    $issuer['url'] = $issuerurl->out(false);
+    $issuer['url'] = $url['scheme'] . '://' . $url['host'];
     $issuer['email'] = $sitebackpack->backpackemail ?? $CFG->badges_defaultissuercontact;
     $issuer['@context'] = OPEN_BADGES_V2_CONTEXT;
     $issuerid = new moodle_url('/badges/issuer_json.php');
